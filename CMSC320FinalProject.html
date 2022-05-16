@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test Upload</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>CMSC320FinalProject</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14565,7 +14565,2452 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>This is just a placeholder!</p>
+<h1 id="CMSC320-Final-Project">CMSC320 Final Project<a class="anchor-link" href="#CMSC320-Final-Project">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Applying-the-Data-Science-Pipeline-to-FIRST-Robotics-Competition-Data">Applying the Data Science Pipeline to FIRST Robotics Competition Data<a class="anchor-link" href="#Applying-the-Data-Science-Pipeline-to-FIRST-Robotics-Competition-Data">&#182;</a></h2><h3 id="By-Joshua-Kalampanayil">By Joshua Kalampanayil<a class="anchor-link" href="#By-Joshua-Kalampanayil">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>FIRST (For Inspiration and Recognition of Science and Technology) Robotics is a nonprofit group that combines both the field of robotics and competition on a K-12 scale. I had the opportunity to be a part of a FIRST Robotics Competition (FRC) team, FIRST's program tier designed for high school students, during my 4 years in high school.</p>
+<p>The structure of a normal FRC season is fairly straightforward: every January, a new game is released. Teams have until the end of February to build a robot (tyypically weighing around 125lbs) to accomplish tasks within the game. From the end of February until April, teams compete at events within their district/attend regional events to compete against other teams and seek to become the winner of the event. In a district system, teams seek to win events to earn district points that determine whether they can attend first attend their district championship, and from there, the FRC Championship in May. In a regional system, teams seek to win at that event, as it is a direct ticket to the FRC Championship.</p>
+<p>At each event, teams compete against each other during qualifications in alliances of 3 teams, and can earn up to 4 ranking points in a match: 2 for winning, and 2 for completing game specific tasks that vary from season to season. After qualifications, the Top 8 ranked teams select 2 other teams to join their final alliance, and the 8 alliances battle it out in quarterfinals, semifinals, and finals matches, until there is 1 alliance standing. While finals alliances consist of 3 teams initially, this can become a team of 4 alliances if one team breaks down and needs to be subbed in with a backup team. Thus, there can be up to 4 winning teams at each event.</p>
+<p>Maybe move this to conclusion: Within the FRC community, there are many teams that are commonly known to perform well, and consistently win district events/regionals, and some even at the championship level, year after year. Some examples of these teams include FRC254, FRC1678, and FRC1114. An FRC season can be a costly affair -- teams have budgets ranging from a few thousand dollars to amounts well in the six figure range. In the analysis to come below, it's important to note that money does play a factor in how well teams perform -- from what equipment and tools they are able to purchase, to other expenses. This may not be entirely captured by the data presented here.</p>
+<p>In this tutorial, I will use FRC data to walk through the data science pipeline, and use machine learning to predict winners of an event from qualification data.</p>
+
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Data-Collection-and-Processing">Data Collection and Processing<a class="anchor-link" href="#Data-Collection-and-Processing">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>For the data, I made two distinct choices:
+1) I focused on data from the 2019 season. This was the last "normal" season, as the season was cut short in 2020 due to COVID-19, competitions didn't occur in 2021, and different districts took on different event models for the 2022 season, which would make it hard to apply the machine learning model created across different districts.
+2) Given that I participated in FRC for 4 years, I decided to focus on my home district, FIRST Chesapeake (CHS). This district has events that occur across Maryland and Virginia, which can be seen in the event codes for each respective event (besides the district championship event)</p>
+
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>For the data, there were 2 sources I could retrieve data from: FRC Event Web, an API provided directly from FIRST, or through the API from The Blue Alliance (TBA). TBA provides data directly from the FRC Event Web API, as well as some additional statistics. From a visual perspective, TBA is also easier to navigate, and links match videos directly from YouTube to each match. From a data perspective, because of the added statistics, I decided to use the API from TBA.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[249]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is a token needed to read data from the API -- it only has read access</span>
+<span class="n">auth</span> <span class="o">=</span> <span class="s2">&quot;ruwUB8CNwFYGz3EuHThYzGcd39CRPHgnV8YgEAV0FWu0Ffj200iEXSvyfTLeETgy&quot;</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-TBA-Auth-Key&#39;</span> <span class="p">:</span> <span class="n">auth</span><span class="p">}</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>First, I needed to get the different events that happened in CHS in 2019.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[323]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">events_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/district/2019chs/events/keys&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[324]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">json</span> <span class="o">=</span> <span class="n">events_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[325]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">district_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[328]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">district_events</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[328]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019chcmp</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019mdbet</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019mdowi</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019mdoxo</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019vabla</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2019vagle</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2019vahay</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2019vapor</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>From this list, we can see that there were 7 district events, along with the district championship. In order to demonstrate the curation process step by step, I will be demonstrating it first for the first district event, 2019mdbet. Afterward, I'll repeat the process for all the other events so that I can properly explore the data.</p>
+
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The one downside with the TBA API is that all of the information about events, teams, and scores are spread across various API calls. As such, I will be going through each and compiling the information together in one DataFrame.</p>
+<p>For the first event, I need to gather what teams were at the event, as well some basic information about each team.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[329]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">teams_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/2019mdbet/teams&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">json</span> <span class="o">=</span> <span class="n">teams_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">teams_at_event</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+<span class="n">teams_at_event</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[329]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>city</th>
+      <th>country</th>
+      <th>gmaps_place_id</th>
+      <th>gmaps_url</th>
+      <th>key</th>
+      <th>lat</th>
+      <th>lng</th>
+      <th>location_name</th>
+      <th>motto</th>
+      <th>name</th>
+      <th>nickname</th>
+      <th>postal_code</th>
+      <th>rookie_year</th>
+      <th>school_name</th>
+      <th>state_prov</th>
+      <th>team_number</th>
+      <th>website</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>None</td>
+      <td>Edgewater</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc1111</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NASA/The Power Hawks Robotics Club, Inc./Anne ...</td>
+      <td>Power Hawks Robotics</td>
+      <td>21037</td>
+      <td>2003</td>
+      <td>South River Senior High School</td>
+      <td>Maryland</td>
+      <td>1111</td>
+      <td>http://www.powerhawks.org</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>None</td>
+      <td>Fairfax</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc1123</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Sony/AIM ROVER/Redeeming Grace Church&amp;Neighbor...</td>
+      <td>AIM ⛟ Robotics</td>
+      <td>22030</td>
+      <td>2003</td>
+      <td>Neighborhood Group</td>
+      <td>Virginia</td>
+      <td>1123</td>
+      <td>http://1123.team</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>None</td>
+      <td>Bethesda</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc1389</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Leidos/Domaine an RLAH Group/The Travel Fairy/...</td>
+      <td>The Body Electric</td>
+      <td>20817</td>
+      <td>2004</td>
+      <td>Walt Whitman High School</td>
+      <td>Maryland</td>
+      <td>1389</td>
+      <td>http://www.team1389.org</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>None</td>
+      <td>Washington</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc1446</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Friendship Public Charter School/Bechtel Corpo...</td>
+      <td>Robo Knights</td>
+      <td>20019</td>
+      <td>2004</td>
+      <td>Friendship Pcs-Collegiate Acad</td>
+      <td>District of Columbia</td>
+      <td>1446</td>
+      <td>http://www.firstinspires.org/</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>None</td>
+      <td>Lutherville Timonium</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc1727</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Friends and Family of REX/Levis Family Foundat...</td>
+      <td>REX</td>
+      <td>21093</td>
+      <td>2006</td>
+      <td>Dulaney High School</td>
+      <td>Maryland</td>
+      <td>1727</td>
+      <td>https://www.dulaneyrobotics.org</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>None</td>
+      <td>Baltimore</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc6326</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Galen Robotics/The Abell Foundation&amp;Northeast ...</td>
+      <td>⚡ Baltimore Bolts ⚡</td>
+      <td>21230</td>
+      <td>2017</td>
+      <td>Baltimore City College HS 480 &amp; Northeast Seni...</td>
+      <td>Maryland</td>
+      <td>6326</td>
+      <td>http://www.baltimorebolts.com</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>None</td>
+      <td>Thurmont</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc686</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Maryland State Department of Education/Bechtel...</td>
+      <td>Bovine Intervention</td>
+      <td>21788</td>
+      <td>2001</td>
+      <td>Catoctin High School &amp; Linganore High School &amp;...</td>
+      <td>Maryland</td>
+      <td>686</td>
+      <td>https://sites.google.com/view/firstteam686/abo...</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>None</td>
+      <td>Greenbelt</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc6893</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>MASER/Washington Academy of Sciences/Sigma Xi/...</td>
+      <td>Bladerunners</td>
+      <td>20710</td>
+      <td>2018</td>
+      <td>Family/Community</td>
+      <td>Maryland</td>
+      <td>6893</td>
+      <td>http:///www.maserdc.org</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>None</td>
+      <td>Washington</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc7714</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Cardozo Education Campus</td>
+      <td>RedRoad</td>
+      <td>20009</td>
+      <td>2019</td>
+      <td>Cardozo Education Campus</td>
+      <td>District of Columbia</td>
+      <td>7714</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>None</td>
+      <td>Bel Air</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc7770</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Family/Community</td>
+      <td>Infinite Voltage</td>
+      <td>21014</td>
+      <td>2019</td>
+      <td>Family/Community</td>
+      <td>Maryland</td>
+      <td>7770</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+<p>36 rows × 18 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>From the DataFrame above, we can see an abundance of information. A lot of this I would consider as unnecessary, except the key, so that I can identify the team, as well as the rookie year of the team -- there might be a relationship between team age and scores/winning. I decided to keep these two columns, but drop everything else.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[330]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">teams_at_event</span> <span class="o">=</span> <span class="n">teams_at_event</span><span class="p">[[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;rookie_year&#39;</span><span class="p">]]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[331]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">teams_at_event</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[331]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>key</th>
+      <th>rookie_year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>frc1111</td>
+      <td>2003</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>frc1123</td>
+      <td>2003</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>frc1389</td>
+      <td>2004</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>frc1446</td>
+      <td>2004</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>frc1727</td>
+      <td>2006</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>frc6326</td>
+      <td>2017</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>frc686</td>
+      <td>2001</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>frc6893</td>
+      <td>2018</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>frc7714</td>
+      <td>2019</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>frc7770</td>
+      <td>2019</td>
+    </tr>
+  </tbody>
+</table>
+<p>36 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now that I have the teams at the event, I want to collect data about each match. This involves another API call.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[130]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">final</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[332]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">match_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/2019mdbet/matches&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">json</span> <span class="o">=</span> <span class="n">match_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+<span class="n">matches</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[332]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>actual_time</th>
+      <th>alliances</th>
+      <th>comp_level</th>
+      <th>event_key</th>
+      <th>key</th>
+      <th>match_number</th>
+      <th>post_result_time</th>
+      <th>predicted_time</th>
+      <th>score_breakdown</th>
+      <th>set_number</th>
+      <th>time</th>
+      <th>videos</th>
+      <th>winning_alliance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1552248703</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 80, 'su...</td>
+      <td>f</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_f1m1</td>
+      <td>1</td>
+      <td>1552248893</td>
+      <td>1552248722</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 12,...</td>
+      <td>1</td>
+      <td>1552248360</td>
+      <td>[{'key': 'jpggyoCj7fc', 'type': 'youtube'}]</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1552249441</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 76, 'su...</td>
+      <td>f</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_f1m2</td>
+      <td>2</td>
+      <td>1552249626</td>
+      <td>1552249562</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 15,...</td>
+      <td>1</td>
+      <td>1552248780</td>
+      <td>[{'key': 'Ai35S_iX0wI', 'type': 'youtube'}]</td>
+      <td>red</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1552250204</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 74, 'su...</td>
+      <td>f</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_f1m3</td>
+      <td>3</td>
+      <td>1552250460</td>
+      <td>1552250283</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 12,...</td>
+      <td>1</td>
+      <td>1552249200</td>
+      <td>[{'key': 'Q1EAiCSyLqc', 'type': 'youtube'}]</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1552240516</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 24, 'su...</td>
+      <td>qf</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_qf1m1</td>
+      <td>1</td>
+      <td>1552240692</td>
+      <td>1552240564</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 12,...</td>
+      <td>1</td>
+      <td>1552240800</td>
+      <td>[{'key': 'F189-5URbTU', 'type': 'youtube'}]</td>
+      <td>red</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1552242896</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 41, 'su...</td>
+      <td>qf</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_qf1m2</td>
+      <td>2</td>
+      <td>1552243137</td>
+      <td>1552243024</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 12,...</td>
+      <td>1</td>
+      <td>1552242480</td>
+      <td>[{'key': 's2-2HVQeIdE', 'type': 'youtube'}]</td>
+      <td>red</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>1552245064</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 64, 'su...</td>
+      <td>sf</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_sf1m1</td>
+      <td>1</td>
+      <td>1552245241</td>
+      <td>1552245003</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 15,...</td>
+      <td>1</td>
+      <td>1552245840</td>
+      <td>[{'key': 'g1G_BORXPVA', 'type': 'youtube'}]</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>1552246734</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 44, 'su...</td>
+      <td>sf</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_sf1m2</td>
+      <td>2</td>
+      <td>1552246917</td>
+      <td>1552246804</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 15,...</td>
+      <td>1</td>
+      <td>1552246680</td>
+      <td>[{'key': 'OeUp7Sv3ULA', 'type': 'youtube'}]</td>
+      <td>red</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>1552247740</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 59, 'su...</td>
+      <td>sf</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_sf1m3</td>
+      <td>3</td>
+      <td>1552247911</td>
+      <td>1552247706</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 9, ...</td>
+      <td>1</td>
+      <td>1552247520</td>
+      <td>[{'key': 'GhCt7EQadKQ', 'type': 'youtube'}]</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>86</th>
+      <td>1552245866</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 78, 'su...</td>
+      <td>sf</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_sf2m1</td>
+      <td>1</td>
+      <td>1552246045</td>
+      <td>1552245842</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 15,...</td>
+      <td>2</td>
+      <td>1552246260</td>
+      <td>[{'key': 'oZN0YtEyoVk', 'type': 'youtube'}]</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>1552247203</td>
+      <td>{'blue': {'dq_team_keys': [], 'score': 79, 'su...</td>
+      <td>sf</td>
+      <td>2019mdbet</td>
+      <td>2019mdbet_sf2m2</td>
+      <td>2</td>
+      <td>1552247378</td>
+      <td>1552247183</td>
+      <td>{'blue': {'adjustPoints': 0, 'autoPoints': 12,...</td>
+      <td>2</td>
+      <td>1552247100</td>
+      <td>[{'key': 'AG4tsEDb6aU', 'type': 'youtube'}]</td>
+      <td>blue</td>
+    </tr>
+  </tbody>
+</table>
+<p>88 rows × 13 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>From this printout and the API documentation, there's two important things to notice: 
+1) The information about match scores are nested in another structure under the "alliances" column which will involve separating that apart further to access that data.
+2) The match data above includes information about playoff matches as well (quarterfinals, semifinals, and finals), which is not useful for the scope I've chosen, analyzing just the qualification match data.</p>
+<p>Based on these two observations, I first decided to remove all playoff data.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[335]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Removing any playoff match data</span>
+<span class="n">qualifications</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">~</span><span class="n">events</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;_f|_qf|_sf&quot;</span><span class="p">)]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>After removing playoff data, I began to dissect the scores.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[338]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Grabbing the name of the event (for later use)</span>
+<span class="n">event_name</span> <span class="o">=</span> <span class="n">qualifications</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">qualification_scores</span> <span class="o">=</span> <span class="n">qualifications</span><span class="p">[[</span><span class="s1">&#39;alliances&#39;</span><span class="p">]]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[339]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">qualification_scores</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[339]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alliances</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>11</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 30, 'su...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 23, 'su...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 27, 'su...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 18, 'su...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 32, 'su...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 64, 'su...</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 71, 'su...</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 44, 'su...</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 50, 'su...</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>{'blue': {'dq_team_keys': [], 'score': 11, 'su...</td>
+    </tr>
+  </tbody>
+</table>
+<p>72 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Even though I removed playoff data, I still want to keep information about what teams won at the event, to identify any possible correlations between qualification performance and winning. This information was not provided in this API call, so I needed to make another API call that would contain this data (namely, in the Awards API call).</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[340]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">winner_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/2019mdbet/awards&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">json</span> <span class="o">=</span> <span class="n">winner_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">awards</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+<span class="n">winners</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">awards</span><span class="p">[</span><span class="n">awards</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;District Event Winner&quot;</span><span class="p">])[</span><span class="s1">&#39;recipient_list&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+<span class="c1"># Since there can be between 3-4 winners per event, this code block breaks up the winners provided from the above line into individual columns, and then from there,</span>
+<span class="c1"># I gathered all of the keys of the winning teams.</span>
+<span class="n">winner_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">winners</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">awardee</span><span class="p">,</span> <span class="n">team</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
+        <span class="n">winner_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">team</span><span class="p">[</span><span class="s1">&#39;team_key&#39;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[341]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">winner_list</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[341]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>[&#39;frc1885&#39;, &#39;frc449&#39;, &#39;frc2849&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>After gathering winners, I then continued to dissect qualification match scores. The API call split the scores based on the two alliances, so I took a further step and created two DataFrames to handle the two alliances separately.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[342]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">blue</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">qualification_scores</span><span class="p">[</span><span class="s1">&#39;alliances&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))[</span><span class="s1">&#39;blue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="n">red</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">qualification_scores</span><span class="p">[</span><span class="s1">&#39;alliances&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))[</span><span class="s1">&#39;red&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[343]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">blue</span><span class="p">,</span> <span class="n">red</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[343]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>(   dq_team_keys  score surrogate_team_keys                    team_keys
+ 0            []     30                  []  [frc2186, frc2900, frc1727]
+ 1            []     23                  []  [frc1446, frc1885, frc2537]
+ 2            []     27                  []  [frc5830, frc6893, frc1123]
+ 3            []     18                  []  [frc6326, frc2914, frc4456]
+ 4            []     32                  []   [frc686, frc4514, frc5115]
+ ..          ...    ...                 ...                          ...
+ 67           []     64                  []  [frc2900, frc3793, frc1885]
+ 68           []     71                  []  [frc4472, frc5587, frc6326]
+ 69           []     44                  []  [frc1123, frc1111, frc6213]
+ 70           []     50                  []  [frc4949, frc5115, frc1389]
+ 71           []     11                  []  [frc6213, frc7714, frc3389]
+ 
+ [72 rows x 4 columns],
+    dq_team_keys  score surrogate_team_keys                    team_keys
+ 0            []     47                  []   [frc5841, frc686, frc1885]
+ 1            []     62                  []   [frc3650, frc686, frc2912]
+ 2            []     26                  []  [frc7770, frc1915, frc1111]
+ 3            []     23                  []  [frc4464, frc2900, frc5587]
+ 4            []     21                  []   [frc5841, frc6213, frc449]
+ ..          ...    ...                 ...                          ...
+ 67           []     38                  []  [frc5115, frc3650, frc2914]
+ 68           []     53                  []  [frc1727, frc5243, frc5841]
+ 69           []     36                  []  [frc4821, frc2186, frc1915]
+ 70           []     45                  []  [frc6239, frc5243, frc4472]
+ 71           []     32                  []   [frc449, frc2849, frc3793]
+ 
+ [72 rows x 4 columns])</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now, putting it all together: I looped through every team and matched up their scores for each match they played, what alliance they were on for that match, and if they ultimately won the event.</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[344]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">final</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[345]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">index1</span><span class="p">,</span> <span class="n">row1</span> <span class="ow">in</span> <span class="n">new</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">team</span> <span class="o">=</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">blue</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;team_keys&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">winner_list</span><span class="p">:</span>
+                <span class="n">final</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">team</span><span class="p">,</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">final</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">team</span><span class="p">,</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">red</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;team_keys&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">winner_list</span><span class="p">:</span>
+                <span class="n">final</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">team</span><span class="p">,</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">final</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">team</span><span class="p">,</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[346]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">final</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[346]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>[[&#39;frc1111&#39;, 2003, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1111&#39;, 2003, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1111&#39;, 2003, 54, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1111&#39;, 2003, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1111&#39;, 2003, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1111&#39;, 2003, 44, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1111&#39;, 2003, 26, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1111&#39;, 2003, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1111&#39;, 2003, 32, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1111&#39;, 2003, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1111&#39;, 2003, 42, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1111&#39;, 2003, 57, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1123&#39;, 2003, 27, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1123&#39;, 2003, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1123&#39;, 2003, 55, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1123&#39;, 2003, 41, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1123&#39;, 2003, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1123&#39;, 2003, 44, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1123&#39;, 2003, 42, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1123&#39;, 2003, 57, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1123&#39;, 2003, 27, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1123&#39;, 2003, 61, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1123&#39;, 2003, 51, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1123&#39;, 2003, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1389&#39;, 2004, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1389&#39;, 2004, 52, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1389&#39;, 2004, 24, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1389&#39;, 2004, 22, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1389&#39;, 2004, 49, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1389&#39;, 2004, 50, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1389&#39;, 2004, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1389&#39;, 2004, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1389&#39;, 2004, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1389&#39;, 2004, 43, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1389&#39;, 2004, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1389&#39;, 2004, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1446&#39;, 2004, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1446&#39;, 2004, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1446&#39;, 2004, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1446&#39;, 2004, 22, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1446&#39;, 2004, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1446&#39;, 2004, 27, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1446&#39;, 2004, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1446&#39;, 2004, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1446&#39;, 2004, 27, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1446&#39;, 2004, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1446&#39;, 2004, 37, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1446&#39;, 2004, 32, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1727&#39;, 2006, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1727&#39;, 2006, 46, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1727&#39;, 2006, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1727&#39;, 2006, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1727&#39;, 2006, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1727&#39;, 2006, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1727&#39;, 2006, 41, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1727&#39;, 2006, 57, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1727&#39;, 2006, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1727&#39;, 2006, 39, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1727&#39;, 2006, 80, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1727&#39;, 2006, 53, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1885&#39;, 2006, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc1885&#39;, 2006, 46, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc1885&#39;, 2006, 55, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc1885&#39;, 2006, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc1885&#39;, 2006, 52, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc1885&#39;, 2006, 64, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc1885&#39;, 2006, 47, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc1885&#39;, 2006, 46, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc1885&#39;, 2006, 74, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc1885&#39;, 2006, 43, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc1885&#39;, 2006, 39, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc1885&#39;, 2006, 40, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc1915&#39;, 2006, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1915&#39;, 2006, 28, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1915&#39;, 2006, 31, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1915&#39;, 2006, 25, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1915&#39;, 2006, 41, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc1915&#39;, 2006, 26, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1915&#39;, 2006, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1915&#39;, 2006, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1915&#39;, 2006, 30, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1915&#39;, 2006, 48, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1915&#39;, 2006, 29, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc1915&#39;, 2006, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2186&#39;, 2007, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2186&#39;, 2007, 18, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2186&#39;, 2007, 32, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2186&#39;, 2007, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2186&#39;, 2007, 37, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2186&#39;, 2007, 11, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2186&#39;, 2007, 27, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2186&#39;, 2007, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2186&#39;, 2007, 51, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2186&#39;, 2007, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2186&#39;, 2007, 40, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2186&#39;, 2007, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2537&#39;, 2008, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2537&#39;, 2008, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2537&#39;, 2008, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2537&#39;, 2008, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2537&#39;, 2008, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2537&#39;, 2008, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2537&#39;, 2008, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2537&#39;, 2008, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2537&#39;, 2008, 42, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2537&#39;, 2008, 29, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2537&#39;, 2008, 40, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2537&#39;, 2008, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2849&#39;, 2009, 55, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc2849&#39;, 2009, 28, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc2849&#39;, 2009, 12, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc2849&#39;, 2009, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc2849&#39;, 2009, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc2849&#39;, 2009, 47, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc2849&#39;, 2009, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc2849&#39;, 2009, 27, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc2849&#39;, 2009, 18, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc2849&#39;, 2009, 55, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc2849&#39;, 2009, 36, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc2849&#39;, 2009, 32, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc2900&#39;, 2009, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2900&#39;, 2009, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2900&#39;, 2009, 39, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2900&#39;, 2009, 26, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2900&#39;, 2009, 10, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2900&#39;, 2009, 64, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2900&#39;, 2009, 23, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2900&#39;, 2009, 11, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2900&#39;, 2009, 27, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2900&#39;, 2009, 54, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2900&#39;, 2009, 30, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2900&#39;, 2009, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2912&#39;, 2009, 49, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2912&#39;, 2009, 39, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2912&#39;, 2009, 34, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2912&#39;, 2009, 31, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2912&#39;, 2009, 37, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2912&#39;, 2009, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2912&#39;, 2009, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2912&#39;, 2009, 62, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2912&#39;, 2009, 31, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2912&#39;, 2009, 40, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2912&#39;, 2009, 43, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2912&#39;, 2009, 57, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2914&#39;, 2009, 18, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2914&#39;, 2009, 48, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2914&#39;, 2009, 32, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2914&#39;, 2009, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2914&#39;, 2009, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc2914&#39;, 2009, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2914&#39;, 2009, 29, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2914&#39;, 2009, 46, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2914&#39;, 2009, 55, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2914&#39;, 2009, 48, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2914&#39;, 2009, 11, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc2914&#39;, 2009, 38, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3389&#39;, 2010, 48, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3389&#39;, 2010, 57, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3389&#39;, 2010, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3389&#39;, 2010, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3389&#39;, 2010, 11, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3389&#39;, 2010, 32, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3389&#39;, 2010, 11, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3389&#39;, 2010, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3389&#39;, 2010, 37, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3389&#39;, 2010, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3389&#39;, 2010, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3389&#39;, 2010, 39, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3650&#39;, 2011, 12, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3650&#39;, 2011, 43, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3650&#39;, 2011, 22, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3650&#39;, 2011, 37, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3650&#39;, 2011, 69, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3650&#39;, 2011, 50, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3650&#39;, 2011, 62, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3650&#39;, 2011, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3650&#39;, 2011, 41, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3650&#39;, 2011, 11, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3650&#39;, 2011, 38, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3650&#39;, 2011, 38, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3793&#39;, 2011, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3793&#39;, 2011, 25, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3793&#39;, 2011, 38, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3793&#39;, 2011, 69, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3793&#39;, 2011, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3793&#39;, 2011, 64, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc3793&#39;, 2011, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3793&#39;, 2011, 83, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3793&#39;, 2011, 29, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3793&#39;, 2011, 61, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3793&#39;, 2011, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc3793&#39;, 2011, 32, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4456&#39;, 2013, 18, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4456&#39;, 2013, 18, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4456&#39;, 2013, 49, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4456&#39;, 2013, 57, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4456&#39;, 2013, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4456&#39;, 2013, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4456&#39;, 2013, 41, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4456&#39;, 2013, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4456&#39;, 2013, 38, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4456&#39;, 2013, 74, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4456&#39;, 2013, 30, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4456&#39;, 2013, 42, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4464&#39;, 2013, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4464&#39;, 2013, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4464&#39;, 2013, 34, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4464&#39;, 2013, 52, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4464&#39;, 2013, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4464&#39;, 2013, 41, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4464&#39;, 2013, 22, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4464&#39;, 2013, 23, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4464&#39;, 2013, 21, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4464&#39;, 2013, 25, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4464&#39;, 2013, 29, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4464&#39;, 2013, 39, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4472&#39;, 2013, 48, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4472&#39;, 2013, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4472&#39;, 2013, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4472&#39;, 2013, 31, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4472&#39;, 2013, 43, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4472&#39;, 2013, 71, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4472&#39;, 2013, 22, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4472&#39;, 2013, 54, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4472&#39;, 2013, 51, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4472&#39;, 2013, 57, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4472&#39;, 2013, 32, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4472&#39;, 2013, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc449&#39;, 2000, 34, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc449&#39;, 2000, 46, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc449&#39;, 2000, 41, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc449&#39;, 2000, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc449&#39;, 2000, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc449&#39;, 2000, 50, &#39;2019mdbet&#39;, &#39;blue&#39;, True],
+ [&#39;frc449&#39;, 2000, 21, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc449&#39;, 2000, 47, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc449&#39;, 2000, 42, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc449&#39;, 2000, 37, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc449&#39;, 2000, 54, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc449&#39;, 2000, 32, &#39;2019mdbet&#39;, &#39;red&#39;, True],
+ [&#39;frc4514&#39;, 2013, 32, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4514&#39;, 2013, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4514&#39;, 2013, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4514&#39;, 2013, 54, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4514&#39;, 2013, 52, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4514&#39;, 2013, 50, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4514&#39;, 2013, 27, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4514&#39;, 2013, 18, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4514&#39;, 2013, 54, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4514&#39;, 2013, 43, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4514&#39;, 2013, 42, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4514&#39;, 2013, 80, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4821&#39;, 2013, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4821&#39;, 2013, 39, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4821&#39;, 2013, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4821&#39;, 2013, 57, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4821&#39;, 2013, 43, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4821&#39;, 2013, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4821&#39;, 2013, 83, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4821&#39;, 2013, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4821&#39;, 2013, 43, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4821&#39;, 2013, 30, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4821&#39;, 2013, 80, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4821&#39;, 2013, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4949&#39;, 2014, 18, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4949&#39;, 2014, 31, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4949&#39;, 2014, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4949&#39;, 2014, 10, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4949&#39;, 2014, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4949&#39;, 2014, 50, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc4949&#39;, 2014, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4949&#39;, 2014, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4949&#39;, 2014, 61, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4949&#39;, 2014, 18, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4949&#39;, 2014, 39, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc4949&#39;, 2014, 30, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5115&#39;, 2014, 32, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5115&#39;, 2014, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5115&#39;, 2014, 26, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5115&#39;, 2014, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5115&#39;, 2014, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5115&#39;, 2014, 50, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5115&#39;, 2014, 41, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5115&#39;, 2014, 37, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5115&#39;, 2014, 22, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5115&#39;, 2014, 42, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5115&#39;, 2014, 36, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5115&#39;, 2014, 38, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5243&#39;, 2014, 49, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5243&#39;, 2014, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5243&#39;, 2014, 12, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5243&#39;, 2014, 46, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5243&#39;, 2014, 41, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5243&#39;, 2014, 38, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5243&#39;, 2014, 28, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5243&#39;, 2014, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5243&#39;, 2014, 48, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5243&#39;, 2014, 40, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5243&#39;, 2014, 53, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5243&#39;, 2014, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5587&#39;, 2015, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5587&#39;, 2015, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5587&#39;, 2015, 54, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5587&#39;, 2015, 69, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5587&#39;, 2015, 47, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5587&#39;, 2015, 71, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5587&#39;, 2015, 23, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5587&#39;, 2015, 28, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5587&#39;, 2015, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5587&#39;, 2015, 49, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5587&#39;, 2015, 43, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5587&#39;, 2015, 37, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5830&#39;, 2016, 27, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5830&#39;, 2016, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5830&#39;, 2016, 46, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5830&#39;, 2016, 22, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5830&#39;, 2016, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5830&#39;, 2016, 52, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5830&#39;, 2016, 27, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5830&#39;, 2016, 37, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5830&#39;, 2016, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5830&#39;, 2016, 40, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5830&#39;, 2016, 30, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5830&#39;, 2016, 39, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5841&#39;, 2016, 28, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5841&#39;, 2016, 17, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5841&#39;, 2016, 40, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5841&#39;, 2016, 10, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5841&#39;, 2016, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5841&#39;, 2016, 11, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5841&#39;, 2016, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5841&#39;, 2016, 21, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5841&#39;, 2016, 32, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5841&#39;, 2016, 37, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5841&#39;, 2016, 21, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5841&#39;, 2016, 53, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5945&#39;, 2016, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5945&#39;, 2016, 42, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5945&#39;, 2016, 24, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5945&#39;, 2016, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5945&#39;, 2016, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5945&#39;, 2016, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5945&#39;, 2016, 11, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc5945&#39;, 2016, 41, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5945&#39;, 2016, 22, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5945&#39;, 2016, 49, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5945&#39;, 2016, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc5945&#39;, 2016, 25, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6213&#39;, 2016, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6213&#39;, 2016, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6213&#39;, 2016, 26, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6213&#39;, 2016, 37, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6213&#39;, 2016, 44, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6213&#39;, 2016, 11, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6213&#39;, 2016, 21, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6213&#39;, 2016, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6213&#39;, 2016, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6213&#39;, 2016, 25, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6213&#39;, 2016, 11, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6213&#39;, 2016, 32, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6239&#39;, 2016, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6239&#39;, 2016, 32, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6239&#39;, 2016, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6239&#39;, 2016, 31, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6239&#39;, 2016, 47, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6239&#39;, 2016, 49, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6239&#39;, 2016, 57, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6239&#39;, 2016, 38, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6239&#39;, 2016, 37, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6239&#39;, 2016, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6239&#39;, 2016, 39, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6239&#39;, 2016, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6326&#39;, 2017, 18, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6326&#39;, 2017, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6326&#39;, 2017, 25, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6326&#39;, 2017, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6326&#39;, 2017, 24, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6326&#39;, 2017, 71, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6326&#39;, 2017, 31, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6326&#39;, 2017, 25, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6326&#39;, 2017, 27, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6326&#39;, 2017, 21, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6326&#39;, 2017, 39, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6326&#39;, 2017, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc686&#39;, 2001, 32, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc686&#39;, 2001, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc686&#39;, 2001, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc686&#39;, 2001, 38, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc686&#39;, 2001, 36, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc686&#39;, 2001, 49, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc686&#39;, 2001, 47, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc686&#39;, 2001, 62, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc686&#39;, 2001, 25, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc686&#39;, 2001, 49, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc686&#39;, 2001, 55, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc686&#39;, 2001, 29, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6893&#39;, 2018, 27, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6893&#39;, 2018, 23, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6893&#39;, 2018, 17, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6893&#39;, 2018, 59, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6893&#39;, 2018, 30, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6893&#39;, 2018, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc6893&#39;, 2018, 31, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6893&#39;, 2018, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6893&#39;, 2018, 74, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6893&#39;, 2018, 24, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6893&#39;, 2018, 11, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc6893&#39;, 2018, 54, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7714&#39;, 2019, 17, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7714&#39;, 2019, 29, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7714&#39;, 2019, 22, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7714&#39;, 2019, 45, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7714&#39;, 2019, 11, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7714&#39;, 2019, 28, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7714&#39;, 2019, 25, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7714&#39;, 2019, 37, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7714&#39;, 2019, 46, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7714&#39;, 2019, 39, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7714&#39;, 2019, 15, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7714&#39;, 2019, 42, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7770&#39;, 2019, 46, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7770&#39;, 2019, 31, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7770&#39;, 2019, 37, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7770&#39;, 2019, 41, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7770&#39;, 2019, 37, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7770&#39;, 2019, 52, &#39;2019mdbet&#39;, &#39;blue&#39;, False],
+ [&#39;frc7770&#39;, 2019, 26, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7770&#39;, 2019, 42, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7770&#39;, 2019, 41, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7770&#39;, 2019, 83, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7770&#39;, 2019, 45, &#39;2019mdbet&#39;, &#39;red&#39;, False],
+ [&#39;frc7770&#39;, 2019, 54, &#39;2019mdbet&#39;, &#39;red&#39;, False]]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[407]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compiled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="p">(</span><span class="n">final</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;team_name&#39;</span><span class="p">,</span> <span class="s2">&quot;rookie_year&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;event_code&quot;</span><span class="p">,</span> <span class="s2">&quot;alliance_color&quot;</span><span class="p">,</span> <span class="s2">&quot;won_event&quot;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[408]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compiled</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[408]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>team_name</th>
+      <th>rookie_year</th>
+      <th>score</th>
+      <th>event_code</th>
+      <th>alliance_color</th>
+      <th>won_event</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>29</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>36</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>54</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>29</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>42</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>427</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>42</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>428</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>41</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>429</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>83</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>430</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>45</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>431</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>54</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>432 rows × 6 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>After compiling all of the match data together, I added one more column for the 3 additional statistics that the TBA API provided, which also required another API call: 
+1) Offensive Power Rating (OPR): A measure of how many points (on average) an individual team contributes to the overall score of each match (higher score is better).
+2) Defensive Power Rating (DPR): A measure of how defensive a robot is (lower score is better).
+3) Calculated Contribution to Winning Margin (CCWM): A measure of how impactful a team is toward helping the alliance win a match (higher score is better).</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[394]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/2019mdbet/oprs&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="n">json</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">oprs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+<span class="n">oprs</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[394]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ccwms</th>
+      <th>dprs</th>
+      <th>oprs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>frc1111</th>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.614260</td>
+    </tr>
+    <tr>
+      <th>frc1123</th>
+      <td>8.115785</td>
+      <td>9.208252</td>
+      <td>17.324036</td>
+    </tr>
+    <tr>
+      <th>frc1389</th>
+      <td>-4.272037</td>
+      <td>15.681795</td>
+      <td>11.409758</td>
+    </tr>
+    <tr>
+      <th>frc1446</th>
+      <td>-5.162219</td>
+      <td>13.027866</td>
+      <td>7.865647</td>
+    </tr>
+    <tr>
+      <th>frc1727</th>
+      <td>17.734509</td>
+      <td>8.645342</td>
+      <td>26.379851</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>frc6326</th>
+      <td>-9.716943</td>
+      <td>16.102791</td>
+      <td>6.385848</td>
+    </tr>
+    <tr>
+      <th>frc686</th>
+      <td>1.069198</td>
+      <td>17.151940</td>
+      <td>18.221138</td>
+    </tr>
+    <tr>
+      <th>frc6893</th>
+      <td>-4.061566</td>
+      <td>11.713810</td>
+      <td>7.652244</td>
+    </tr>
+    <tr>
+      <th>frc7714</th>
+      <td>-8.525617</td>
+      <td>12.449991</td>
+      <td>3.924374</td>
+    </tr>
+    <tr>
+      <th>frc7770</th>
+      <td>6.138342</td>
+      <td>12.646798</td>
+      <td>18.785140</td>
+    </tr>
+  </tbody>
+</table>
+<p>36 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[409]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">oprs</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">oprs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;team_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[410]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compiled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">compiled</span><span class="p">,</span> <span class="n">oprs</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;team_name&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[411]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compiled</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[411]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>team_name</th>
+      <th>rookie_year</th>
+      <th>score</th>
+      <th>event_code</th>
+      <th>alliance_color</th>
+      <th>won_event</th>
+      <th>ccwms</th>
+      <th>dprs</th>
+      <th>oprs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>29</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.61426</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>36</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.61426</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>54</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.61426</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>29</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.61426</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>42</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.61426</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>427</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>42</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+      <td>6.138342</td>
+      <td>12.646798</td>
+      <td>18.78514</td>
+    </tr>
+    <tr>
+      <th>428</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>41</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+      <td>6.138342</td>
+      <td>12.646798</td>
+      <td>18.78514</td>
+    </tr>
+    <tr>
+      <th>429</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>83</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+      <td>6.138342</td>
+      <td>12.646798</td>
+      <td>18.78514</td>
+    </tr>
+    <tr>
+      <th>430</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>45</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+      <td>6.138342</td>
+      <td>12.646798</td>
+      <td>18.78514</td>
+    </tr>
+    <tr>
+      <th>431</th>
+      <td>frc7770</td>
+      <td>2019</td>
+      <td>54</td>
+      <td>2019mdbet</td>
+      <td>red</td>
+      <td>False</td>
+      <td>6.138342</td>
+      <td>12.646798</td>
+      <td>18.78514</td>
+    </tr>
+  </tbody>
+</table>
+<p>432 rows × 9 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Thus, this completes the data curation for the 2019mdbet event. We now have each team that competed in this event, their rookie year, their score for each qualification match played, whether they won the 2019mdbet event, and their different statisic values. I will now repeat this process for all of the other events.</p>
 
 </div>
 </div>
