@@ -14598,7 +14598,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Data-Collection-and-Processing">Data Collection and Processing<a class="anchor-link" href="#Data-Collection-and-Processing">&#182;</a></h2>
+<h2 id="Data-Collection-and-Processing-%7B-%7D">Data Collection and Processing {-}<a class="anchor-link" href="#Data-Collection-and-Processing-%7B-%7D">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -14624,12 +14624,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[120]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 
      </div>
@@ -14642,7 +14643,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[249]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is a token needed to read data from the API -- it only has read access</span>
@@ -14659,7 +14660,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-TBA-Auth-Key&#39;</span> <span class="p">:</span> <span class="n">auth</span><span class="p">}</span>
@@ -14683,7 +14684,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[323]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">events_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/district/2019chs/events/keys&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
@@ -14699,7 +14700,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[324]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">json</span> <span class="o">=</span> <span class="n">events_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -14715,7 +14716,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[325]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">district_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
@@ -14731,7 +14732,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[328]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">district_events</span>
@@ -14752,7 +14753,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[328]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 
 
 
@@ -14844,7 +14845,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[329]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">teams_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/2019mdbet/teams&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
@@ -14868,7 +14869,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[329]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 
 
 
@@ -15018,25 +15019,550 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>https://www.dulaneyrobotics.org</td>
     </tr>
     <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+      <th>5</th>
+      <td>None</td>
+      <td>Haymarket</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc1885</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>US STEM Foundation/Lockheed Martin/Macedon Tec...</td>
+      <td>ILITE Robotics</td>
+      <td>20169</td>
+      <td>2006</td>
+      <td>Battlefield High School</td>
+      <td>Virginia</td>
+      <td>1885</td>
+      <td>http://www.ilite.us</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>None</td>
+      <td>Washington</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc1915</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NASA Headquarters/Bechtel/DC Public Schools/Go...</td>
+      <td>MTHS Firebird Robotics</td>
+      <td>20002</td>
+      <td>2006</td>
+      <td>Mckinley Tech High School</td>
+      <td>District of Columbia</td>
+      <td>1915</td>
+      <td>http://www.firstinspires.org/</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>None</td>
+      <td>Chantilly</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc2186</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>BAE Systems/CACI/ICF/The Monachello Family/The...</td>
+      <td>Dogs of Steel</td>
+      <td>20151</td>
+      <td>2007</td>
+      <td>Westfield High School</td>
+      <td>Virginia</td>
+      <td>2186</td>
+      <td>http://www.dogsofsteel.org</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>None</td>
+      <td>Columbia</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc2537</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Maryland State Department of Education/Marylan...</td>
+      <td>Space RAIDers</td>
+      <td>21044</td>
+      <td>2008</td>
+      <td>Atholton High School</td>
+      <td>Maryland</td>
+      <td>2537</td>
+      <td>http://www.team2537.com</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>None</td>
+      <td>Columbia</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc2849</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Maryland State Department of Education / Varin...</td>
+      <td>Ursa Major</td>
+      <td>21046</td>
+      <td>2009</td>
+      <td>Hammond High School</td>
+      <td>Maryland</td>
+      <td>2849</td>
+      <td>http://www.hammondursamajor.org/ursamajor2849/</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>None</td>
+      <td>Washington</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc2900</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>DCPS/Google/United Therapeutics&amp;School Without...</td>
+      <td>The Mighty Penguins</td>
+      <td>20037</td>
+      <td>2009</td>
+      <td>School Without Walls Shs</td>
+      <td>District of Columbia</td>
+      <td>2900</td>
+      <td>http://www.firstinspires.org/</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>None</td>
+      <td>Washington</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc2912</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Google / Bechtel / DCPS CTE &amp; Phelps Ace High ...</td>
+      <td>Panther Robotics</td>
+      <td>20002</td>
+      <td>2009</td>
+      <td>Phelps Ace High School</td>
+      <td>District of Columbia</td>
+      <td>2912</td>
+      <td>http://www.firstinspires.org/</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>None</td>
+      <td>Washington</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc2914</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Bechtel/Amazon/NASA&amp;Woodrow Wilson Senior High...</td>
+      <td>TIGER PRIDE</td>
+      <td>20016</td>
+      <td>2009</td>
+      <td>Woodrow Wilson Senior High Sch</td>
+      <td>District of Columbia</td>
+      <td>2914</td>
+      <td>https://www.wilsonrobotics.net</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>None</td>
+      <td>Salisbury</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc3389</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Wicomico County Robotics Club / NASA- Wallops ...</td>
+      <td>TEC Tigers</td>
+      <td>21804</td>
+      <td>2010</td>
+      <td>Parkside High School - CTE &amp; Parkside High School</td>
+      <td>Maryland</td>
+      <td>3389</td>
+      <td>https://wicomicocountyroboticsclub.weebly.com</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>None</td>
+      <td>La Plata</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc3650</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Department of Defense, STEM / Navy Surface War...</td>
+      <td>RoboRaptors</td>
+      <td>20646</td>
+      <td>2011</td>
+      <td>St Charles High School &amp; North Pt Hs-Sci Tech ...</td>
+      <td>Maryland</td>
+      <td>3650</td>
+      <td>http://www.firstinspires.org/</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>None</td>
+      <td>Frederick</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc3793</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Bechtel/Lockheed Martin/Leidos/FCPS MD&amp;Middlet...</td>
+      <td>CyberTitans</td>
+      <td>21703</td>
+      <td>2011</td>
+      <td>Middletown High School &amp; Tuscarora High School</td>
+      <td>Maryland</td>
+      <td>3793</td>
+      <td>http://cybertitans3793.com</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>None</td>
+      <td>Washington</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc4456</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Edison Electrical/Leidos&amp;St John's College Hig...</td>
+      <td>Mech Cadets</td>
+      <td>20015</td>
+      <td>2013</td>
+      <td>St John's College High School</td>
+      <td>District of Columbia</td>
+      <td>4456</td>
+      <td>https://frc4456.com/</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>None</td>
+      <td>Laurel</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc4464</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Chesapeake Lighthouse Foundation/MSBR/Abbott&amp;C...</td>
+      <td>Team Illusion</td>
+      <td>20707</td>
+      <td>2013</td>
+      <td>Chesapeake Math &amp; It Pc-N-Ms</td>
+      <td>Maryland</td>
+      <td>4464</td>
+      <td>http://www.teamillusion4464.com/</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>None</td>
+      <td>Woodbridge</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc4472</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Lockheed Martin/Micron Technology/Raytheon Tec...</td>
+      <td>SuperNOVA</td>
+      <td>22192</td>
+      <td>2013</td>
+      <td>Family/Community</td>
+      <td>Virginia</td>
+      <td>4472</td>
+      <td>http://4472supernova.org/</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>None</td>
+      <td>Silver Spring</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc449</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Intelligent Automation Inc./MBHS Magnet Founda...</td>
+      <td>The Blair Robot Project</td>
+      <td>20901</td>
+      <td>2000</td>
+      <td>Montgomery Blair High School</td>
+      <td>Maryland</td>
+      <td>449</td>
+      <td>https://robot.mbhs.edu/</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>None</td>
+      <td>Huntingtown</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc4514</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>DoDSTEM/Booz-Allen-Hamilton/Calvert Help Assoc...</td>
+      <td>Calvert STEAM Works</td>
+      <td>20639</td>
+      <td>2013</td>
+      <td>Northern High School &amp; Huntingtown High School</td>
+      <td>Maryland</td>
+      <td>4514</td>
+      <td>https://sites.google.com/view/steamworks4514</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>None</td>
+      <td>Washington</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc4821</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>United Therapeutics/FIRST Chesapeake/ Capital ...</td>
+      <td>cyberUs</td>
+      <td>20011</td>
+      <td>2013</td>
+      <td>District of Columbia International School</td>
+      <td>District of Columbia</td>
+      <td>4821</td>
+      <td>http://www.cyberus4821.weebly.com</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>None</td>
+      <td>Riverdale</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc4949</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>City of College Park, MD / DoDSTEM / Leidos / ...</td>
+      <td>Robo Panthers</td>
+      <td>20737</td>
+      <td>2014</td>
+      <td>Parkdale High School</td>
+      <td>Maryland</td>
+      <td>4949</td>
+      <td>http:///www.phsrobopanthers.org</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>None</td>
+      <td>Silver Spring</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc5115</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Montgomery County Public Schools/GEICO Informa...</td>
+      <td>Knight Riders</td>
+      <td>20906</td>
+      <td>2014</td>
+      <td>Wheaton Senior High School</td>
+      <td>Maryland</td>
+      <td>5115</td>
+      <td>https://wheatonrobotics.org/</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>None</td>
+      <td>Clifton</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc5243</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Leidos/IBM/George Mason University/TapHere! Te...</td>
+      <td>Aegis Robotics</td>
+      <td>20124</td>
+      <td>2014</td>
+      <td>Centreville High School</td>
+      <td>Virginia</td>
+      <td>5243</td>
+      <td>http://www.centrevillerobotics.net/</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>None</td>
+      <td>Alexandria</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc5587</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>DoD STEM/Google/Boeing/Raytheon/Comcast/Intuit...</td>
+      <td>Titan Robotics</td>
+      <td>22302</td>
+      <td>2015</td>
+      <td>Alexandria City High School</td>
+      <td>Virginia</td>
+      <td>5587</td>
+      <td>https://frc5587.org</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>None</td>
+      <td>Gambrills</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc5830</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Trek Networks/Maryland Space Business Roundtab...</td>
+      <td>LIFE Engineering</td>
+      <td>21054</td>
+      <td>2016</td>
+      <td>Home School</td>
+      <td>Maryland</td>
+      <td>5830</td>
+      <td>http://www.team5830.org</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>None</td>
+      <td>Frederick</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc5841</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Maryland State Department of Education/Lockhee...</td>
+      <td>The Patriots</td>
+      <td>21701</td>
+      <td>2016</td>
+      <td>Gov Thomas Johnson High School</td>
+      <td>Maryland</td>
+      <td>5841</td>
+      <td>http://www.firstinspires.org/</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>None</td>
+      <td>Fulton</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc5945</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Greenebaum Enterprises/Eaton/W R Grace/Hackgro...</td>
+      <td>|CTRL| (Absolute Control)</td>
+      <td>20759</td>
+      <td>2016</td>
+      <td>Family/Community</td>
+      <td>Maryland</td>
+      <td>5945</td>
+      <td>http://frc.thehackground.org</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>None</td>
+      <td>Bowie</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc6213</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Patient First/uBreakiFix/SnapMobile/Argosy/Lei...</td>
+      <td>Team Quantum</td>
+      <td>20715</td>
+      <td>2016</td>
+      <td>Bowie High School</td>
+      <td>Maryland</td>
+      <td>6213</td>
+      <td>http:///www.teamquantum#6213.org</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>None</td>
+      <td>Capitol Heights</td>
+      <td>USA</td>
+      <td>None</td>
+      <td>None</td>
+      <td>frc6239</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Maryland Space Business Roundtable/Omnyon/Cere...</td>
+      <td>The Irrational Engineers</td>
+      <td>20715</td>
+      <td>2016</td>
+      <td>Family/Community</td>
+      <td>Maryland</td>
+      <td>6239</td>
+      <td>http://www.theirrationalengineers.com/</td>
     </tr>
     <tr>
       <th>31</th>
@@ -15145,7 +15671,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     </tr>
   </tbody>
 </table>
-<p>36 rows × 18 columns</p>
 </div>
 </div>
 
@@ -15168,7 +15693,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[330]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">teams_at_event</span> <span class="o">=</span> <span class="n">teams_at_event</span><span class="p">[[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;rookie_year&#39;</span><span class="p">]]</span>
@@ -15184,7 +15709,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[331]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">teams_at_event</span>
@@ -15205,7 +15730,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[331]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
 
 
 
@@ -15259,9 +15784,134 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>2006</td>
     </tr>
     <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
+      <th>5</th>
+      <td>frc1885</td>
+      <td>2006</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>frc1915</td>
+      <td>2006</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>frc2186</td>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>frc2537</td>
+      <td>2008</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>frc2849</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>frc2900</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>frc2912</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>frc2914</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>frc3389</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>frc3650</td>
+      <td>2011</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>frc3793</td>
+      <td>2011</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>frc4456</td>
+      <td>2013</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>frc4464</td>
+      <td>2013</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>frc4472</td>
+      <td>2013</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>frc449</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>frc4514</td>
+      <td>2013</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>frc4821</td>
+      <td>2013</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>frc4949</td>
+      <td>2014</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>frc5115</td>
+      <td>2014</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>frc5243</td>
+      <td>2014</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>frc5587</td>
+      <td>2015</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>frc5830</td>
+      <td>2016</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>frc5841</td>
+      <td>2016</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>frc5945</td>
+      <td>2016</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>frc6213</td>
+      <td>2016</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>frc6239</td>
+      <td>2016</td>
     </tr>
     <tr>
       <th>31</th>
@@ -15290,7 +15940,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     </tr>
   </tbody>
 </table>
-<p>36 rows × 2 columns</p>
 </div>
 </div>
 
@@ -15313,7 +15962,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[130]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">final</span> <span class="o">=</span> <span class="p">[]</span>
@@ -15329,7 +15978,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[332]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">match_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/2019mdbet/matches&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
@@ -15353,7 +16002,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[332]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
 
 
 
@@ -15596,11 +16245,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[335]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Removing any playoff match data</span>
-<span class="n">qualifications</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">~</span><span class="n">events</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;_f|_qf|_sf&quot;</span><span class="p">)]</span>
+<span class="n">qualifications</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="o">~</span><span class="n">matches</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;_f|_qf|_sf&quot;</span><span class="p">)]</span>
 </pre></div>
 
      </div>
@@ -15621,7 +16270,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[338]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Grabbing the name of the event (for later use)</span>
@@ -15639,7 +16288,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[339]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">qualification_scores</span>
@@ -15660,7 +16309,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[339]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
 
 
 
@@ -15756,7 +16405,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[340]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">winner_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/2019mdbet/awards&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
@@ -15782,7 +16431,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[341]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">winner_list</span>
@@ -15803,7 +16452,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[341]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
 
 
 
@@ -15831,7 +16480,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[342]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">blue</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">qualification_scores</span><span class="p">[</span><span class="s1">&#39;alliances&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))[</span><span class="s1">&#39;blue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
@@ -15848,7 +16497,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[343]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">blue</span><span class="p">,</span> <span class="n">red</span>
@@ -15869,7 +16518,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[343]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
 
 
 
@@ -15924,7 +16573,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[344]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">final</span> <span class="o">=</span> <span class="p">[]</span>
@@ -15940,10 +16589,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[345]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">index1</span><span class="p">,</span> <span class="n">row1</span> <span class="ow">in</span> <span class="n">new</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">index1</span><span class="p">,</span> <span class="n">row1</span> <span class="ow">in</span> <span class="n">teams_at_event</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     <span class="n">team</span> <span class="o">=</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">blue</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;team_keys&#39;</span><span class="p">]:</span>
@@ -15969,7 +16618,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[346]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">final</span>
@@ -15990,7 +16639,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[346]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
 
 
 
@@ -16441,10 +17090,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[407]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compiled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="p">(</span><span class="n">final</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;team_name&#39;</span><span class="p">,</span> <span class="s2">&quot;rookie_year&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;event_code&quot;</span><span class="p">,</span> <span class="s2">&quot;alliance_color&quot;</span><span class="p">,</span> <span class="s2">&quot;won_event&quot;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_matches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="p">(</span><span class="n">final</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;team_name&#39;</span><span class="p">,</span> <span class="s2">&quot;rookie_year&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;event_code&quot;</span><span class="p">,</span> <span class="s2">&quot;alliance_color&quot;</span><span class="p">,</span> <span class="s2">&quot;won_event&quot;</span><span class="p">])</span>
 </pre></div>
 
      </div>
@@ -16457,10 +17106,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[408]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compiled</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_matches</span>
 </pre></div>
 
      </div>
@@ -16478,7 +17127,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[408]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
 
 
 
@@ -16637,7 +17286,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[394]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/2019mdbet/oprs&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
@@ -16661,7 +17310,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[394]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[25]:</div>
 
 
 
@@ -16721,10 +17370,160 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>26.379851</td>
     </tr>
     <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+      <th>frc1885</th>
+      <td>6.609230</td>
+      <td>15.558880</td>
+      <td>22.168110</td>
+    </tr>
+    <tr>
+      <th>frc1915</th>
+      <td>0.739884</td>
+      <td>5.308569</td>
+      <td>6.048453</td>
+    </tr>
+    <tr>
+      <th>frc2186</th>
+      <td>-15.523956</td>
+      <td>20.251473</td>
+      <td>4.727517</td>
+    </tr>
+    <tr>
+      <th>frc2537</th>
+      <td>-12.371876</td>
+      <td>18.952392</td>
+      <td>6.580516</td>
+    </tr>
+    <tr>
+      <th>frc2849</th>
+      <td>2.596591</td>
+      <td>8.860362</td>
+      <td>11.456953</td>
+    </tr>
+    <tr>
+      <th>frc2900</th>
+      <td>-3.647268</td>
+      <td>8.750373</td>
+      <td>5.103105</td>
+    </tr>
+    <tr>
+      <th>frc2912</th>
+      <td>11.489318</td>
+      <td>8.845674</td>
+      <td>20.334992</td>
+    </tr>
+    <tr>
+      <th>frc2914</th>
+      <td>2.306202</td>
+      <td>10.556711</td>
+      <td>12.862913</td>
+    </tr>
+    <tr>
+      <th>frc3389</th>
+      <td>4.084222</td>
+      <td>7.150827</td>
+      <td>11.235049</td>
+    </tr>
+    <tr>
+      <th>frc3650</th>
+      <td>-10.128670</td>
+      <td>17.820775</td>
+      <td>7.692105</td>
+    </tr>
+    <tr>
+      <th>frc3793</th>
+      <td>14.528858</td>
+      <td>10.152337</td>
+      <td>24.681195</td>
+    </tr>
+    <tr>
+      <th>frc4456</th>
+      <td>6.401417</td>
+      <td>11.303293</td>
+      <td>17.704710</td>
+    </tr>
+    <tr>
+      <th>frc4464</th>
+      <td>-2.265041</td>
+      <td>11.673013</td>
+      <td>9.407972</td>
+    </tr>
+    <tr>
+      <th>frc4472</th>
+      <td>-1.487262</td>
+      <td>23.822118</td>
+      <td>22.334856</td>
+    </tr>
+    <tr>
+      <th>frc449</th>
+      <td>1.735295</td>
+      <td>13.983416</td>
+      <td>15.718712</td>
+    </tr>
+    <tr>
+      <th>frc4514</th>
+      <td>8.115019</td>
+      <td>9.552085</td>
+      <td>17.667104</td>
+    </tr>
+    <tr>
+      <th>frc4821</th>
+      <td>9.727078</td>
+      <td>8.037392</td>
+      <td>17.764470</td>
+    </tr>
+    <tr>
+      <th>frc4949</th>
+      <td>-3.317042</td>
+      <td>7.749086</td>
+      <td>4.432044</td>
+    </tr>
+    <tr>
+      <th>frc5115</th>
+      <td>-2.545746</td>
+      <td>14.725956</td>
+      <td>12.180209</td>
+    </tr>
+    <tr>
+      <th>frc5243</th>
+      <td>-7.922654</td>
+      <td>17.923467</td>
+      <td>10.000813</td>
+    </tr>
+    <tr>
+      <th>frc5587</th>
+      <td>7.753885</td>
+      <td>13.965552</td>
+      <td>21.719436</td>
+    </tr>
+    <tr>
+      <th>frc5830</th>
+      <td>-1.711540</td>
+      <td>14.820681</td>
+      <td>13.109141</td>
+    </tr>
+    <tr>
+      <th>frc5841</th>
+      <td>-9.606052</td>
+      <td>16.133827</td>
+      <td>6.527775</td>
+    </tr>
+    <tr>
+      <th>frc5945</th>
+      <td>-4.230201</td>
+      <td>12.911656</td>
+      <td>8.681455</td>
+    </tr>
+    <tr>
+      <th>frc6213</th>
+      <td>-0.194984</td>
+      <td>3.761038</td>
+      <td>3.566054</td>
+    </tr>
+    <tr>
+      <th>frc6239</th>
+      <td>1.507788</td>
+      <td>10.640921</td>
+      <td>12.148709</td>
     </tr>
     <tr>
       <th>frc6326</th>
@@ -16758,7 +17557,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     </tr>
   </tbody>
 </table>
-<p>36 rows × 3 columns</p>
 </div>
 </div>
 
@@ -16773,7 +17571,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[409]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">oprs</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
@@ -16790,10 +17588,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[410]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compiled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">compiled</span><span class="p">,</span> <span class="n">oprs</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;team_name&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_matches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">all_matches</span><span class="p">,</span> <span class="n">oprs</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;team_name&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16806,10 +17604,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[411]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compiled</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_matches</span>
 </pre></div>
 
      </div>
@@ -16827,7 +17625,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[411]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[28]:</div>
 
 
 
@@ -17014,6 +17812,872 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">district_events</span> <span class="o">=</span> <span class="n">district_events</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">district_events</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">district_events</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[29]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019chcmp</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019mdowi</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019mdoxo</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019vabla</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2019vagle</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2019vahay</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2019vapor</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">district_events</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">event_name</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># Team Curation</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/&quot;</span> <span class="o">+</span> <span class="n">event_name</span> <span class="o">+</span> <span class="s2">&quot;/teams&quot;</span>
+    <span class="n">teams_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">teams_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">teams_at_event</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+    <span class="n">teams_at_event</span> <span class="o">=</span> <span class="n">teams_at_event</span><span class="p">[[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;rookie_year&#39;</span><span class="p">]]</span>
+    
+    <span class="n">final</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/&quot;</span> <span class="o">+</span> <span class="n">event_name</span> <span class="o">+</span> <span class="s2">&quot;/matches&quot;</span>
+    <span class="n">match_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">match_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+    
+    <span class="n">qualifications</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="o">~</span><span class="n">matches</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;_f|_qf|_sf&quot;</span><span class="p">)]</span>
+    <span class="n">qualification_scores</span> <span class="o">=</span> <span class="n">qualifications</span><span class="p">[[</span><span class="s1">&#39;alliances&#39;</span><span class="p">]]</span>
+    
+    <span class="k">if</span> <span class="n">event_name</span> <span class="o">==</span> <span class="s2">&quot;2019chcmp&quot;</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/&quot;</span> <span class="o">+</span> <span class="n">event_name</span> <span class="o">+</span> <span class="s2">&quot;/awards&quot;</span>
+        <span class="n">winner_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+        <span class="n">json</span> <span class="o">=</span> <span class="n">winner_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">awards</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+        <span class="n">winners</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">awards</span><span class="p">[</span><span class="n">awards</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;District Championship Winner&quot;</span><span class="p">])[</span><span class="s1">&#39;recipient_list&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+        <span class="n">winner_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">winners</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">awardee</span><span class="p">,</span> <span class="n">team</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
+                <span class="n">winner_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">team</span><span class="p">[</span><span class="s1">&#39;team_key&#39;</span><span class="p">])</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/&quot;</span> <span class="o">+</span> <span class="n">event_name</span> <span class="o">+</span> <span class="s2">&quot;/awards&quot;</span>
+        <span class="n">winner_request</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+        <span class="n">json</span> <span class="o">=</span> <span class="n">winner_request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">awards</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+        <span class="n">winners</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">awards</span><span class="p">[</span><span class="n">awards</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;District Event Winner&quot;</span><span class="p">])[</span><span class="s1">&#39;recipient_list&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+        <span class="n">winner_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">winners</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">awardee</span><span class="p">,</span> <span class="n">team</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
+                <span class="n">winner_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">team</span><span class="p">[</span><span class="s1">&#39;team_key&#39;</span><span class="p">])</span>
+        
+    <span class="n">blue</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">qualification_scores</span><span class="p">[</span><span class="s1">&#39;alliances&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))[</span><span class="s1">&#39;blue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="n">red</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">qualification_scores</span><span class="p">[</span><span class="s1">&#39;alliances&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))[</span><span class="s1">&#39;red&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    
+    <span class="k">for</span> <span class="n">index1</span><span class="p">,</span> <span class="n">row1</span> <span class="ow">in</span> <span class="n">teams_at_event</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">team</span> <span class="o">=</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">blue</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;team_keys&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">winner_list</span><span class="p">:</span>
+                    <span class="n">final</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">team</span><span class="p">,</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">final</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">team</span><span class="p">,</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">red</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;team_keys&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">winner_list</span><span class="p">:</span>
+                    <span class="n">final</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">team</span><span class="p">,</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">final</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">team</span><span class="p">,</span> <span class="n">row1</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+    
+    <span class="n">compiled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="p">(</span><span class="n">final</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;team_name&#39;</span><span class="p">,</span> <span class="s2">&quot;rookie_year&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;event_code&quot;</span><span class="p">,</span> <span class="s2">&quot;alliance_color&quot;</span><span class="p">,</span> <span class="s2">&quot;won_event&quot;</span><span class="p">])</span>
+    
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.thebluealliance.com/api/v3/event/&quot;</span> <span class="o">+</span> <span class="n">event_name</span> <span class="o">+</span> <span class="s2">&quot;/oprs&quot;</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">oprs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">oprs</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">oprs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;team_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+
+    <span class="n">compiled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">compiled</span><span class="p">,</span> <span class="n">oprs</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;team_name&#39;</span><span class="p">)</span>
+    
+    <span class="n">all_matches</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">all_matches</span><span class="p">,</span> <span class="n">compiled</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_matches</span> <span class="o">=</span> <span class="n">all_matches</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">all_matches</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[31]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>team_name</th>
+      <th>rookie_year</th>
+      <th>score</th>
+      <th>event_code</th>
+      <th>alliance_color</th>
+      <th>won_event</th>
+      <th>ccwms</th>
+      <th>dprs</th>
+      <th>oprs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>29</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.614260</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>36</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.614260</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>54</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.614260</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>29</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.614260</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>frc1111</td>
+      <td>2003</td>
+      <td>42</td>
+      <td>2019mdbet</td>
+      <td>blue</td>
+      <td>False</td>
+      <td>-3.961947</td>
+      <td>14.576206</td>
+      <td>10.614260</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>3799</th>
+      <td>439</td>
+      <td>frc977</td>
+      <td>2002</td>
+      <td>53</td>
+      <td>2019vapor</td>
+      <td>red</td>
+      <td>False</td>
+      <td>3.722826</td>
+      <td>21.191992</td>
+      <td>24.914817</td>
+    </tr>
+    <tr>
+      <th>3800</th>
+      <td>440</td>
+      <td>frc977</td>
+      <td>2002</td>
+      <td>60</td>
+      <td>2019vapor</td>
+      <td>red</td>
+      <td>False</td>
+      <td>3.722826</td>
+      <td>21.191992</td>
+      <td>24.914817</td>
+    </tr>
+    <tr>
+      <th>3801</th>
+      <td>441</td>
+      <td>frc977</td>
+      <td>2002</td>
+      <td>59</td>
+      <td>2019vapor</td>
+      <td>red</td>
+      <td>False</td>
+      <td>3.722826</td>
+      <td>21.191992</td>
+      <td>24.914817</td>
+    </tr>
+    <tr>
+      <th>3802</th>
+      <td>442</td>
+      <td>frc977</td>
+      <td>2002</td>
+      <td>59</td>
+      <td>2019vapor</td>
+      <td>red</td>
+      <td>False</td>
+      <td>3.722826</td>
+      <td>21.191992</td>
+      <td>24.914817</td>
+    </tr>
+    <tr>
+      <th>3803</th>
+      <td>443</td>
+      <td>frc977</td>
+      <td>2002</td>
+      <td>68</td>
+      <td>2019vapor</td>
+      <td>red</td>
+      <td>False</td>
+      <td>3.722826</td>
+      <td>21.191992</td>
+      <td>24.914817</td>
+    </tr>
+  </tbody>
+</table>
+<p>3804 rows × 10 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Exploratory-Analysis-and-Data-Visualization-%7B-%7D">Exploratory Analysis and Data Visualization {-}<a class="anchor-link" href="#Exploratory-Analysis-and-Data-Visualization-%7B-%7D">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>From the curated data, one major aspect I'm interested to see is how the age of a team influences the chance of winning at an event. Age of a team can be explored through win rate, as well as how the additional statistics vary among the winning teams.</p>
+
+</div>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Analyzing-Team-Age-vs-Win-Rate">Analyzing Team Age vs Win Rate<a class="anchor-link" href="#Analyzing-Team-Age-vs-Win-Rate">&#182;</a></h3>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[109]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">winning_years</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">all_matches</span><span class="p">[</span><span class="s1">&#39;event_code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">all_matches</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_matches</span><span class="p">[</span><span class="s1">&#39;event_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">event</span><span class="p">]</span>
+    
+    <span class="n">temp2</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span> <span class="s1">&#39;team_name&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">temp2</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;won_event&#39;</span><span class="p">]:</span>
+            <span class="n">winning_years</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[110]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">winning_years</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">winning_years</span><span class="p">)</span>
+<span class="n">winning_years</span> <span class="o">=</span> <span class="n">winning_years</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">winning_years</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">winning_years</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[111]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">winning_years</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">winning_years</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">winning_years</span> <span class="o">=</span> <span class="n">winning_years</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span> <span class="p">:</span><span class="s1">&#39;value&#39;</span><span class="p">})</span>
+<span class="n">winning_years</span> <span class="o">=</span> <span class="n">winning_years</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[112]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">winning_years</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[112]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>value</th>
+      <th>year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2000</th>
+      <td>4</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>6</td>
+      <td>2001</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>1</td>
+      <td>2002</td>
+    </tr>
+    <tr>
+      <th>2004</th>
+      <td>2</td>
+      <td>2004</td>
+    </tr>
+    <tr>
+      <th>2005</th>
+      <td>2</td>
+      <td>2005</td>
+    </tr>
+    <tr>
+      <th>2006</th>
+      <td>2</td>
+      <td>2006</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>1</td>
+      <td>2008</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>1</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>1</td>
+      <td>2010</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>1</td>
+      <td>2011</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>1</td>
+      <td>2013</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>1</td>
+      <td>2017</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>2</td>
+      <td>2018</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[113]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="n">winning_years</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plot</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[113]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&lt;AxesSubplot:xlabel=&#39;year&#39;&gt;</pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>From this, we can see how 10/25 winners that won events in 2019 were founded in 2000 or 2001</p>
+
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Analyzing-Team-Age-vs-OPR-%7B-%7D">Analyzing Team Age vs OPR {-}<a class="anchor-link" href="#Analyzing-Team-Age-vs-OPR-%7B-%7D">&#182;</a></h3>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[127]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">opr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">dpr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ccwm</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">years</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">all_matches</span><span class="p">[</span><span class="s1">&#39;event_code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">all_matches</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_matches</span><span class="p">[</span><span class="s1">&#39;event_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">event</span><span class="p">]</span>
+    
+    <span class="n">temp2</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span> <span class="s1">&#39;team_name&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">temp2</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;won_event&#39;</span><span class="p">]:</span>
+            <span class="n">years</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;rookie_year&#39;</span><span class="p">])</span>
+            <span class="n">opr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;oprs&#39;</span><span class="p">])</span>
+            <span class="n">dpr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;dprs&#39;</span><span class="p">])</span>
+            <span class="n">ccwm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;ccwms&#39;</span><span class="p">])</span>
+            
+<span class="nb">type</span><span class="p">(</span><span class="n">opr</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[127]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>list</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[129]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">opr</span><span class="p">,</span> <span class="n">dpr</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+Input <span class="ansi-green-fg">In [129]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">plt</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">scatter</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">opr</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">dpr</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: &#39;tuple&#39; object is not callable</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[125]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">opr</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+Input <span class="ansi-green-fg">In [125]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span> a <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">plt</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">scatter</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">years</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">opr</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: &#39;tuple&#39; object is not callable</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
